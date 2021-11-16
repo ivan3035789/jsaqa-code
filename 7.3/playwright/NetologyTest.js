@@ -1,6 +1,7 @@
 const { chromium } = require("playwright");
 const user = require("../playwright/user");
 const { test, expect } = require("@playwright/test");
+
 ("Успешная авторизация",
 async () => {
   const browser = await chromium.launch({
@@ -19,7 +20,7 @@ async () => {
     page.waitForNavigation(/*{ url: 'https://netology.ru/profile' }*/),
     page.click("text=Войти"),
   ]);
-  await page.waitForTimeout(10000);
+  await page.waitForSelector("h2");
   await page.screenshot({ path: "screenshot_2.png" });
   await expect("Мои курсы и профессии").toEqual(await page.textContent("h2")); // .replace(/["']+/g, "");
   await expect(page.locator("text=Мои курсы и профессии"));
